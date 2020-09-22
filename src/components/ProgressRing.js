@@ -25,12 +25,7 @@ const ProgressRing = ({size, progress, strokeWidth, mark, markerWidth}) => {
                 width={size}
                 height={size}
             >	
-            <defs>
-			    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-			      <stop offset="0%" stop-color="#00bc9b" />
-			      <stop offset="100%" stop-color="#5eaefd" />
-			    </linearGradient>
-			  </defs>
+
                 <circle
                     className={`svg-circle-bg${progress > 100 ? ' completed' : ''}`}
                     cx={'50%'}
@@ -48,7 +43,7 @@ const ProgressRing = ({size, progress, strokeWidth, mark, markerWidth}) => {
                     strokeWidth={strokeWidth}
                     strokeDasharray={circumference}
                     strokeDashoffset={mainOffset}
-                    stroke-linecap="round"
+                    strokeLinecap="round"
                     id='wire'
                 />
 

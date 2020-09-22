@@ -1,6 +1,7 @@
-import React from 'react';
-import useTimer from './useTimer'
-import ProgressRing from './ProgressRing'
+import React, {useRef} from 'react';
+import useTimer from './hooks/useTimer'
+import useWindowSize from './hooks/useWindowSize'
+import ProgressRing from './components/ProgressRing'
 import Flag from './img/flag.svg'
 import Reset from './img/reset.svg'
 import ReactTooltip from 'react-tooltip';
@@ -29,29 +30,34 @@ const formatTime = (time) => {
 function App() {
 
   const { timer, isActive, isPaused, handleStart, handlePause, handleResume, handleReset, handleLap, laps } = useTimer(0)
-
+  const stopwatchRef = useRef(null)
+  const {id_width} = useWindowSize(stopwatchRef);
 
   return (
     <div className="container">
       <div className="row">
         <div className="col center">
-          <div className='stopwatch-face shadow'>
-            <div className={`digital-time${!isPaused && isActive ? ' is-paused' : ''}`}>
-              {formatTime(timer)}
+
+          <div className='stopwatch-wrapper'>
+            <div ref={stopwatchRef} id='stopwatch' className='stopwatch-face shadow'>
+              <div className={`digital-time${!isPaused && isActive ? ' is-paused' : ''}`}>
+                {formatTime(timer)}
+              </div>
+              {id_width && <ProgressRing 
+                size={id_width-60} 
+                strokeWidth={15} 
+                progress={(100 * parseInt(timer - laps.reduce((acc, value) => acc + value.current, 0)) / 6000)}
+                mark={laps.length > 0 ? laps[0].current : false}
+                markerWidth={15}
+              />
+              } 
             </div>
-            <ProgressRing 
-              size={320} 
-              strokeWidth={15} 
-              progress={(100 * parseInt(timer - laps.reduce((acc, value) => acc + value.current, 0)) / 6000)}
-              mark={laps.length > 0 ? laps[0].current : false}
-              markerWidth={15}
-            />
           </div>
         </div>
         <div className="col content">
             
             <div className='section'>
-              <h3>Stopwatch</h3>
+              <h3>Stopwatch Challenge</h3>
               <div className='controls'>
                 <ReactTooltip effect='solid' backgroundColor='#31456a'/>
                  <button 

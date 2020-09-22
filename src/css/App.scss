@@ -33,6 +33,7 @@ body {
 .row {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .col {
@@ -74,15 +75,26 @@ h6 {
   justify-content: center;
 }
 
+.stopwatch-wrapper {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+}
+
 .stopwatch-face {
-  width:380px;
-  height:380px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  max-width: 450px;
+  max-height: 450px;
+  margin: 0 auto;
   background-color: $background;
   border-radius:50%; 
   display: flex;
   justify-content: center;
   align-items:center;
-  position: relative;
   & .svg{
       display: block;
       margin: auto;
@@ -275,7 +287,7 @@ h6 {
 @media only screen and (max-width: 768px) {
   .col {
       flex: 0 1 100%;
-      max-width: 100%;
+      max-width: 500px;
   }
 
   .content {
